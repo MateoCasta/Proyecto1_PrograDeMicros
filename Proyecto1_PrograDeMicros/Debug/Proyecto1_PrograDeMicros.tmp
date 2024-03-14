@@ -1,0 +1,141 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\M328PDEF.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\Debug\Proyecto1_PrograDeMicros.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Proyecto1_PrograDeMicros.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Proyecto1_PrograDeMicros.map</FILE>
+  <FILE>Proyecto1_PrograDeMicros.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <MAIN><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>27</LINE></MAIN>
+  <BTN><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>170</LINE></BTN>
+  <T1_OVF><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>957</LINE></T1_OVF>
+  <T0_OVF><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1047</LINE></T0_OVF>
+  <Setup><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>38</LINE></Setup>
+  <T7SEG><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1268</LINE></T7SEG>
+  <Timer1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>926</LINE></Timer1>
+  <Timer0><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>945</LINE></Timer0>
+  <LOOP><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>161</LINE></LOOP>
+  <MODO><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>884</LINE></MODO>
+  <Config><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>364</LINE></Config>
+  <COMP1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>183</LINE></COMP1>
+  <COMP2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>190</LINE></COMP2>
+  <Done_T><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1257</LINE></Done_T>
+  <COMP1_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>197</LINE></COMP1_1>
+  <COMP1_2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>203</LINE></COMP1_2>
+  <COMP2_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>211</LINE></COMP2_1>
+  <COMP2_2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>217</LINE></COMP2_2>
+  <Suma_Hora_Comp><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>453</LINE></Suma_Hora_Comp>
+  <Suma_Fecha_Comp><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>445</LINE></Suma_Fecha_Comp>
+  <Suma_Alarma_Comp><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>434</LINE></Suma_Alarma_Comp>
+  <Resta_Hora_Comp><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>223</LINE></Resta_Hora_Comp>
+  <Resta_Fecha_Comp><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>437</LINE></Resta_Fecha_Comp>
+  <Resta_Alarma_Comp><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>358</LINE></Resta_Alarma_Comp>
+  <Resta_Hora><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>233</LINE></Resta_Hora>
+  <Resta_Hora1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>300</LINE></Resta_Hora1>
+  <Res1_OVF><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>249</LINE></Res1_OVF>
+  <R_OVF><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>279</LINE></R_OVF>
+  <Rest1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>257</LINE></Rest1>
+  <RES2_OVF><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>317</LINE></RES2_OVF>
+  <R2_OVF><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>340</LINE></R2_OVF>
+  <Comp_C1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>399</LINE></Comp_C1>
+  <Comp_C2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>406</LINE></Comp_C2>
+  <Config_Hora><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>375</LINE></Config_Hora>
+  <SHFT_Hora><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>413</LINE></SHFT_Hora>
+  <SHFT_Fecha><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>430</LINE></SHFT_Fecha>
+  <SHFT_Alarma><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>427</LINE></SHFT_Alarma>
+  <SHFT_Hora1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>421</LINE></SHFT_Hora1>
+  <Resta_Fecha><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>874</LINE></Resta_Fecha>
+  <Resta_Fecha1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>878</LINE></Resta_Fecha1>
+  <Suma_Fecha><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>593</LINE></Suma_Fecha>
+  <Suma_Fecha1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>870</LINE></Suma_Fecha1>
+  <Suma_Hora><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>541</LINE></Suma_Hora>
+  <Suma_Hora1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>468</LINE></Suma_Hora1>
+  <Suma_Alarma><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>463</LINE></Suma_Alarma>
+  <RES_SUM1_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>497</LINE></RES_SUM1_1>
+  <RES_SUM1_2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>489</LINE></RES_SUM1_2>
+  <RES_C1_2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>484</LINE></RES_C1_2>
+  <RES_SUM2_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>520</LINE></RES_SUM2_1>
+  <RES_C1_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>534</LINE></RES_C1_1>
+  <RES_SUM1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>555</LINE></RES_SUM1>
+  <RES_C1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>576</LINE></RES_C1>
+  <RES_SUM2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>581</LINE></RES_SUM2>
+  <M1_9><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>601</LINE></M1_9>
+  <D_30_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>622</LINE></D_30_1>
+  <D_28><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>662</LINE></D_28>
+  <D_31><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>624</LINE></D_31>
+  <D_30><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>699</LINE></D_30>
+  <DEC_31_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>651</LINE></DEC_31_1>
+  <DR_31_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>653</LINE></DR_31_1>
+  <DR_31><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>645</LINE></DR_31>
+  <RES_31_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>655</LINE></RES_31_1>
+  <DEC_31><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>824</LINE></DEC_31>
+  <RES_31><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>841</LINE></RES_31>
+  <DEC_28_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>689</LINE></DEC_28_1>
+  <DR_28_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>691</LINE></DR_28_1>
+  <DR_28><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>683</LINE></DR_28>
+  <RES_28_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>693</LINE></RES_28_1>
+  <DEC_28><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>735</LINE></DEC_28>
+  <RES_28><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>753</LINE></RES_28>
+  <DEC_30_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>727</LINE></DEC_30_1>
+  <DR_30_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>729</LINE></DR_30_1>
+  <DR_30><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>719</LINE></DR_30>
+  <RES_30_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>731</LINE></RES_30_1>
+  <DEC_30><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>780</LINE></DEC_30>
+  <RES_30><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>798</LINE></RES_30>
+  <Modo_Fecha><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>897</LINE></Modo_Fecha>
+  <Modo_Alarma><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>902</LINE></Modo_Alarma>
+  <Modo_Hora><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>908</LINE></Modo_Hora>
+  <Modo_Reloj><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>918</LINE></Modo_Reloj>
+  <Suma><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>971</LINE></Suma>
+  <Reinicio1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>979</LINE></Reinicio1>
+  <Reinicio2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>990</LINE></Reinicio2>
+  <RES1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1005</LINE></RES1>
+  <Reinicio3><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1012</LINE></Reinicio3>
+  <Reinicio4><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1029</LINE></Reinicio4>
+  <LED1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1065</LINE></LED1>
+  <DIS1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1083</LINE></DIS1>
+  <DIS2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1095</LINE></DIS2>
+  <DIS3><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1109</LINE></DIS3>
+  <DIS4><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1121</LINE></DIS4>
+  <LED1OFF><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1075</LINE></LED1OFF>
+  <LED1ON><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1079</LINE></LED1ON>
+  <DIS1_FECHA_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1159</LINE></DIS1_FECHA_1>
+  <DIS1_ALARMA_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1134</LINE></DIS1_ALARMA_1>
+  <DIS2_FECHA_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1165</LINE></DIS2_FECHA_1>
+  <DIS2_ALARMA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1239</LINE></DIS2_ALARMA>
+  <DIS3_FECHA_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1171</LINE></DIS3_FECHA_1>
+  <DIS3_ALARMA_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1147</LINE></DIS3_ALARMA_1>
+  <DIS4_FECHA_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1177</LINE></DIS4_FECHA_1>
+  <DIS4_ALARMA_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1153</LINE></DIS4_ALARMA_1>
+  <DIS1_Alarma><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1233</LINE></DIS1_Alarma>
+  <DIS1_HORA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1184</LINE></DIS1_HORA>
+  <DIS2_Alarma_1><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1141</LINE></DIS2_Alarma_1>
+  <DIS2_HORA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1191</LINE></DIS2_HORA>
+  <DIS3_Alarma><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1245</LINE></DIS3_Alarma>
+  <DIS3_HORA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1197</LINE></DIS3_HORA>
+  <DIS4_Alarma><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1251</LINE></DIS4_Alarma>
+  <DIS4_HORA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1203</LINE></DIS4_HORA>
+  <DIS1_FECHA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1211</LINE></DIS1_FECHA>
+  <DIS2_FECHA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1216</LINE></DIS2_FECHA>
+  <DIS3_FECHA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1221</LINE></DIS3_FECHA>
+  <DIS4_FECHA><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1226</LINE></DIS4_FECHA>
+  <T7SEG2><FILE>C:\Users\Mateo\Documents\Atmel Studio\7.0\Proyecto1_PrograDeMicros\main.asm</FILE><LINE>1269</LINE></T7SEG2>
+ </LABELS>
+</ASSEMBLER_INFO>

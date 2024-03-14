@@ -1,0 +1,1269 @@
+//*****************************************************************************
+//Nombre: Mateo Castañeda
+//Proyecto: Proyecto 1
+//Hardware: ATMEGA328P
+//IE2023: Programación de Microcontroladres
+//Fecha: 6/03/11
+//*****************************************************************************
+// Encabezado
+//*****************************************************************************
+.INCLUDE "M328PDEF.inc"
+.CSEG
+.ORG 0x00
+jmp MAIN
+.org 0x0008
+JMP BTN
+.org 0x001A
+jmp T1_OVF
+.org 0x0020
+jmp T0_OVF
+
+
+
+
+//*****************************************************************************
+// STACK POINTER
+//*****************************************************************************
+MAIN:
+	LDI R16, LOW(RAMEND)
+	OUT SPL, R16
+	LDI R17, HIGH(RAMEND)
+	OUT SPH, R17 
+
+//*****************************************************************************
+// Configuración
+//*****************************************************************************
+
+
+Setup:
+CLR R16
+CLR R17
+CLR R18
+CLR R19
+CLR R20
+CLR R21 
+CLR R22
+CLR R23
+CLR R24
+CLR R25
+CLR R26
+CLR R27
+CLR R28
+CLR R29
+CLR R30
+CLR R31
+
+
+
+.equ Reloj1_Config = 0x0200
+.equ Reloj2_Config = 0x0201
+.equ Reloj3_Config = 0x0202
+.equ Reloj4_Config = 0x0203
+
+.equ Fecha1 = 0x0204
+.equ Fecha2 = 0x0205
+.equ Fecha3 = 0x0206
+.equ Fecha4 = 0x0207
+
+.equ Contador1 = 0x0208
+.equ Contador2 = 0x0209
+.equ Contador3 = 0x020A
+.equ Contador4 = 0x020B
+.equ Contador5 = 0x020C
+.equ Contador1_F = 0x020D
+.equ Contador2_F = 0x020E
+.equ Contador3_F = 0x020F
+.equ Contador4_F = 0x021F
+
+LDI R16, 1
+STS Contador1_F, R16
+STS Contador3_F, R16
+LDI R16, 0X00
+STS Contador2_F, R16
+.equ Hora1 = 0x0210
+.equ Hora2 = 0x0211
+.equ Hora3 = 0x0212
+.equ Hora4 = 0x0213
+
+.equ Alarma1 = 0x0214
+.equ Alarma2 = 0x0215
+.equ Alarma3 = 0x0216
+.equ Alarma4 = 0x0217
+
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z
+STS Fecha2, r16
+STS Fecha4, r16
+STS Hora1, r16
+STS Hora2, r16
+STS Hora3, r16
+STS Hora4, r16
+STS Alarma1, R16
+STS Alarma2, R16
+STS Alarma3, R16
+STS Alarma4, R16
+INC ZL
+LPM R16, Z
+STS Fecha1, R16
+STS Fecha3, R16
+CLR R16
+LDI R16, 0x00
+STS UCSR0B, R16
+
+
+LDI R16, 0b0111_0000
+OUT DDRC, R16
+
+LDI R16, 0b0000_1111
+OUT PORTC, R16
+LDI R16, 0xFF
+OUT DDRD, R16
+OUT PORTD, R16
+LDI R16, 0x1F
+OUT DDRB, R16
+LDI R16, 0X00
+OUT PORTB, R16
+//Configuración de interrupción botones
+CLR R16
+LDI R16, 0b0000_1111
+STS PCMSK1, R16
+LDI R16, 0b0000_0010
+STS PCICR, R16
+//Configuración de interrupción timer1
+LDI R16, 0b0000_0001
+STS TIMSK1, R16
+
+
+//Configuración de interrupción timer0
+LDI R16, (1<<TOIE0)
+STS TIMSK0, R16
+
+
+
+
+SEI
+Call Timer1
+Call Timer0
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)	
+LPM R17, Z
+LPM R18, Z
+LPM R19, Z
+LPM R20, Z
+LDI R21, 0 
+LDI R16, 0b0001_0001
+OUT PORTB, R16 
+LDI R28, 0XFF
+LDI R29, 0XFF
+CLR R25
+CLR R16
+LOOP:
+RJMP LOOP
+
+//*****************************************************************************
+// Sub-Rutinas
+//*****************************************************************************
+
+
+
+BTN:
+
+SBIS PINC, 0
+JMP MODO
+SBIS PINC, 1 
+JMP Config
+SBIS PINC, 2
+JMP COMP1
+SBIS PINC, 3
+JMP COMP2
+
+JMP Done_T
+
+COMP1:
+SBIC PINC, 4
+JMP COMP1_1
+SBIC PINC, 5
+JMP COMP1_2
+JMP Done_T
+
+COMP2:
+SBIC PINC, 4
+JMP COMP2_1
+SBIC PINC, 5
+JMP COMP2_2
+JMP Done_T
+
+COMP1_1:
+SBIC PINC, 5
+JMP Suma_Hora_Comp
+JMP Suma_Fecha_Comp
+JMP Done_T
+
+COMP1_2:
+SBIC PINC, 4
+JMP Suma_Hora_Comp
+JMP Suma_Alarma_Comp
+JMP Done_T
+
+
+
+COMP2_1:
+SBIC PINC, 5
+JMP Resta_Hora_Comp
+JMP Resta_Fecha_Comp
+JMP Done_T
+
+COMP2_2:
+SBIC PINC, 4
+JMP Resta_Hora_Comp
+JMP Resta_Alarma_Comp
+JMP Done_T
+
+Resta_Hora_Comp:
+LDS R16, Contador5
+SBRS R16, 0
+JMP Resta_Hora
+SBRC R16, 0
+JMP Resta_Hora1
+JMP Done_T
+
+
+
+Resta_Hora:
+LDS R16, Hora1
+CPI R16, 0b1100_0000
+BREQ Res1_OVF
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador1
+ADD ZL, R16 
+DEC R16
+DEC ZL
+STS Contador1, R16
+LPM R16, Z
+STS Hora1, R16
+CLR R16
+LDI ZL, LOW(T7SEG<<1)
+JMP Done_T
+
+Res1_OVF:
+LDS R16, Hora2
+CPI R16, 0b1100_0000
+BREQ R_OVF
+JMP Rest1
+JMP Done_T
+
+
+REST1:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador2
+ADD ZL, R16
+DEC ZL
+DEC R16
+STS Contador2, R16
+LPM R16, Z
+STS Hora2, R16
+
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDI R16, 9
+
+STS Contador1, R16
+ADD ZL, R16
+LPM R16, Z
+STS Hora1, R16
+CLR R16
+JMP Done_T
+
+R_OVF:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+CLR R16
+LDI R16, 5
+ADD ZL, R16
+LPM R16, Z
+STS Hora2, R16
+LDI R16, 4
+ADD ZL, R16
+LPM R16, Z
+STS Hora1, R16
+CLR R16
+LDI R16, 5
+STS Contador2, R16
+LDI R16, 9
+STS Contador1, R16
+CLR R16
+JMP Done_T
+
+
+Resta_Hora1:
+LDS R16, Hora3
+CPI R16, 0b1100_0000
+BREQ RES2_OVF
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador3
+ADD ZL, R16
+DEC R16
+STS Contador3, R16
+DEC ZL
+LPM R16, Z
+STS Hora3, R16
+CLR R16
+JMP Done_T
+
+
+RES2_OVF:
+LDS R16, Hora4
+CPI R16, 0b1100_0000
+BREQ R2_OVF
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador4
+ADD ZL, R16
+DEC ZL 
+DEC R16
+STS Contador4, R16
+LPM R16, Z
+STS Hora4, R16
+CLR R16
+LDI ZL, LOW(T7SEG<<1)
+LDI R16, 9
+ADD ZL, R16
+STS Contador3, R16
+LPM R16, Z
+STS Hora3, R16 
+JMP Done_T
+
+
+R2_OVF:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDI R16, 2
+ADD ZL, R16
+LPM R16, Z
+STS Hora4, R16
+LDI R16, 1
+ADD ZL, R16
+LPM R16, Z
+STS Hora3, R16
+LDI R16, 2
+STS Contador4, R16
+LDI R16, 3
+STS Contador3, R16
+CLR R16
+
+JMP Done_T
+Resta_Alarma_Comp:
+
+JMP Done_T
+
+
+
+Config:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+SBIC PINC, 4 
+JMP Comp_C1
+SBIC PINC, 5
+JMP Comp_C2
+JMP Config_Hora
+JMP Done_T
+
+
+Config_Hora:
+LDS R16, Hora1
+MOV R17, R16
+LDS R16, Hora2
+MOV R18, R16
+LDS R16, Hora3
+MOV R19, R16
+LDS R16, Hora4
+MOV R20, R16
+LDS R16, Contador5
+LDI R16, 0x00
+LDS R16, Contador2 
+MOV R23, R16
+LDS R16, Contador3 
+MOV R24, R16
+LDS R16, Contador4 
+MOV R25, R16
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador1
+ADD ZL, R16
+
+JMP Done_T
+
+
+Comp_C1:
+SBIC PINC, 5
+JMP SHFT_Hora
+SBIS PINC, 5
+JMP SHFT_Fecha
+JMP Done_T
+
+Comp_C2:
+SBIC PINC, 4
+JMP SHFT_Alarma
+SBIS PINC, 4
+JMP SHFT_Fecha
+JMP Done_T
+
+SHFT_Hora:
+LDS R16, Contador5
+SBRC R16, 0
+JMP SHFT_Hora1
+LDI R16, 0b0000_0001
+STS Contador5, R16
+JMP Done_T
+
+SHFT_Hora1:
+LDI R16, 0b0000_0100
+STS Contador5, R16
+JMP Done_T
+
+
+SHFT_Alarma:
+
+JMP Done_T
+SHFT_Fecha:
+
+JMP Done_T
+
+Suma_Alarma_Comp:
+JMP Done_T
+
+Resta_Fecha_Comp:
+LDS R16, Contador5
+SBRS R16, 0
+JMP Resta_Fecha
+SBRC R16, 0
+JMP Resta_Fecha1
+JMP Done_T
+
+Suma_Fecha_Comp:
+LDS R16, Contador5
+SBRS R16, 0
+JMP Suma_Fecha
+SBRC R16, 0
+JMP Suma_Fecha1
+JMP Done_T
+
+Suma_Hora_Comp:
+LDS R16, Contador5
+SBRS R16, 0
+JMP Suma_Hora
+SBRC R16, 0
+JMP Suma_Hora1
+JMP Done_T
+
+
+
+Suma_Alarma:
+
+JMP Done_T
+
+
+Suma_Hora1:
+INC ZL
+LPM R16, Z
+
+CPI R16, 0xFF
+BREQ RES_SUM1_1
+STS Hora3, r16
+LDS R16, Contador3
+INC R16
+STS Contador3, R16
+LDS R28, Hora4
+CPI R28, 0b1010_0100
+BREQ RES_SUM1_2
+JMP Done_T
+
+
+RES_C1_2:
+CLR R16
+STS Contador3, R16
+JMP Done_T
+
+RES_SUM1_2:
+
+CLR R28
+LDS R16, Hora3
+CPI R16,  0b1001_1001
+BREQ RES_SUM2_1
+JMP Done_T
+
+RES_SUM1_1:
+
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z
+STS Hora3, R16
+LDS R16, Contador4
+INC R16
+CPI R16, 10 
+BREQ RES_C1_1
+STS Contador4, R16
+ADD ZL, R16
+LPM R16, Z
+CPI R16, 0b1011_0000
+BREQ RES_SUM2_1
+STS Hora4, R16
+CLR R16
+STS Contador3, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+JMP Done_T
+
+
+RES_SUM2_1:
+CLR R16
+STS Contador4, R16
+STS Contador3, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z 
+STS Hora3, R16
+STS Hora4, R16
+JMP Done_T
+
+
+
+
+RES_C1_1:
+CLR R16
+STS Contador4, R16
+JMP Done_T
+
+
+
+Suma_Hora:
+LDS R16, Contador1
+INC R16
+STS Contador1, R16
+CLR R16
+INC ZL
+LPM R16, Z
+CPI R16, 0xFF
+BREQ RES_SUM1
+STS Hora1, R16
+
+JMP Done_T
+
+
+RES_SUM1:
+CLR R16
+STS Contador1, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z 
+STS Hora1, R16
+LDS R16, Contador2
+INC R16 
+CPI R16, 10
+BREQ RES_C1
+STS Contador2, R16
+ADD ZL, R16
+LPM R16, Z
+CPI R16, 0b1000_0010
+BREQ RES_SUM2
+STS Hora2, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+JMP Done_T
+
+RES_C1:
+CLR R16
+STS Contador2, R16
+JMP Done_T
+
+RES_SUM2:
+CLR R23
+CLR R16
+STS Contador2, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z 
+STS Hora1, R16
+STS Hora2, R16
+
+JMP Done_T
+
+Suma_Fecha:
+LDS R16, Fecha4
+CPI R16, 0b1100_0000
+BREQ M1_9
+
+JMP Done_T
+
+
+M1_9:
+LDS R16, Fecha3
+CPI R16,  0b1111_1001
+BREQ D_30_1 
+CPI R16, 0b1010_0100
+BREQ D_28
+CPI R16, 0b1011_0000
+BREQ D_31
+CPI R16,  0b1001_1001
+BREQ D_30_1 
+CPI R16, 0b1001_0010
+BREQ D_31
+CPI R16,  0b1000_0010
+BREQ D_30_1 
+CPI R16, 0b1111_1000
+BREQ D_31
+CPI R16, 0b1000_0000 
+BREQ D_31
+CPI R16, 0b1001_0000
+BREQ D_30_1
+JMP Done_T
+D_30_1:
+JMP D_30
+D_31:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador1_F
+INC R16 
+ADD ZL, R16
+LPM R16, Z
+CPI R16, 0xFF
+BREQ DEC_31_1
+STS Fecha1, R16
+LDS R16, Contador1_F
+INC R16
+STS Contador1_F, R16
+LDS R16, Fecha2
+CPI R16,  0b1011_0000
+BREQ DR_31_1
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+
+JMP Done_T
+
+DR_31:
+LDS R16, Fecha1
+CPI R16, 0b1010_0100
+BREQ RES_31_1
+CLR R16
+JMP Done_T
+DEC_31_1:
+JMP DEC_31
+DR_31_1:
+JMP DR_31
+RES_31_1:
+JMP RES_31
+
+
+JMP Done_T
+
+
+D_28:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador1_F
+INC R16 
+ADD ZL, R16
+LPM R16, Z
+CPI R16, 0xFF
+BREQ DEC_28_1
+STS Fecha1, R16
+LDS R16, Contador1_F
+INC R16
+STS Contador1_F, R16
+LDS R16, Fecha2
+CPI R16,  0b1010_0100
+BREQ DR_28_1
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+
+JMP Done_T
+
+DR_28:
+LDS R16, Fecha1
+CPI R16, 0b1001_0000
+BREQ RES_28_1
+CLR R16
+JMP Done_T
+DEC_28_1:
+JMP DEC_28
+DR_28_1:
+JMP DR_28
+RES_28_1:
+JMP RES_28
+
+
+
+
+D_30:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador1_F
+INC R16 
+ADD ZL, R16
+LPM R16, Z
+CPI R16, 0xFF
+BREQ DEC_30_1
+STS Fecha1, R16
+LDS R16, Contador1_F
+INC R16
+STS Contador1_F, R16
+LDS R16, Fecha2
+CPI R16,  0b1011_0000
+BREQ DR_30_1
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+JMP Done_T
+
+DR_30:
+
+LDS R16, Fecha1
+CPI R16, 0b1111_1001
+BREQ RES_30_1
+CLR R16
+
+JMP Done_T
+DEC_30_1:
+JMP DEC_30
+DR_30_1:
+JMP DR_30
+RES_30_1:
+JMP RES_30
+
+
+DEC_28:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z
+STS Fecha1, R16
+LDS R16, Contador2_F
+INC R16
+STS Contador2_F, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+ADD ZL, R16
+LPM R16, Z
+STS Fecha2, R16
+CLR R16
+STS Contador1_F, R16
+JMP Done_T
+
+
+RES_28:
+LDI R16, 1
+STS Contador1_F, R16
+LDI R16,  0
+STS Contador2_F, R16
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador1_F
+ADD ZL, R16
+LPM R16, Z
+STS Fecha1, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z
+STS Fecha2, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador3_F
+INC R16
+STS Contador3_F, R16
+ADD ZL, R16
+LPM R16, Z
+STS Fecha3, R16 
+CLR R16
+
+JMP Done_T
+
+
+DEC_30:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z
+STS Fecha1, R16
+LDS R16, Contador2_F
+INC R16
+STS Contador2_F, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+ADD ZL, R16
+LPM R16, Z
+STS Fecha2, R16
+CLR R16
+STS Contador1_F, R16
+JMP Done_T
+
+
+RES_30:
+LDI R16, 1
+STS Contador1_F, R16
+LDI R16,  0
+STS Contador2_F, R16
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador1_F
+ADD ZL, R16
+LPM R16, Z
+STS Fecha1, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z
+STS Fecha2, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador3_F
+INC R16
+STS Contador3_F, R16
+ADD ZL, R16
+LPM R16, Z
+STS Fecha3, R16 
+CLR R16
+
+JMP Done_T
+
+DEC_31:
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z
+STS Fecha1, R16
+LDS R16, Contador2_F
+INC R16
+STS Contador2_F, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+ADD ZL, R16
+LPM R16, Z
+STS Fecha2, R16
+CLR R16
+STS Contador1_F, R16
+JMP Done_T
+
+RES_31:
+LDI R16, 1
+STS Contador1_F, R16
+LDI R16,  0
+STS Contador2_F, R16
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador1_F
+ADD ZL, R16
+LPM R16, Z
+STS Fecha1, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LPM R16, Z
+STS Fecha2, R16
+LDI ZH, HIGH(T7SEG<<1)
+LDI ZL, LOW(T7SEG<<1)
+LDS R16, Contador3_F
+INC R16
+STS Contador3_F, R16
+ADD ZL, R16
+LPM R16, Z
+STS Fecha3, R16 
+CLR R16
+
+JMP Done_T
+
+
+
+
+Suma_Fecha1:
+
+JMP Done_T
+
+Resta_Fecha:
+
+
+JMP Done_T
+Resta_Fecha1:
+
+
+JMP Done_T
+
+
+Modo:
+IN R27, PINC
+CBR R27, 0b0000_1111
+CPI R27, 0b0000_0000
+BREQ Modo_Fecha
+CPI R27, 0b0001_0000
+BREQ Modo_Alarma
+CPI R27, 0b0010_0000
+BREQ Modo_Hora
+CPI R27, 0b0011_0000
+BREQ Modo_Reloj
+RET
+
+Modo_Fecha:
+SBI PORTC, 4
+CLR R27
+JMP Done_T
+
+Modo_Alarma: 
+CBI PORTC, 4
+SBI PORTC, 5
+CLR R27
+JMP Done_T
+
+Modo_Hora:
+LDI R16, 0x00
+STS TCCR1B, R16
+SBI PORTC, 5
+SBI PORTC, 4
+LDI ZL, LOW(T7SEG<<1)
+JMP Done_T
+
+
+
+Modo_Reloj:
+LDI R16, 0b0000_0101
+STS TCCR1B, R16
+CBI PORTC, 4
+CBI PORTC, 5
+JMP Done_T
+
+
+Timer1:
+LDI R16, 0b0000_0000
+STS TCCR1A, R16
+
+LDI R16, 0b0000_0101
+STS TCCR1B, R16
+
+LDI R16, 0xC2
+STS TCNT1H, R16
+LDI R16, 0xF7
+STS TCNT1L, R16
+/*LDI R16, 0xFF
+STS TCNT1H, R16
+LDI R16, 0x62
+STS TCNT1L, R16*/
+
+RET
+
+
+Timer0:
+LDI R16, 0b0000_0000
+OUT TCCR0A, R16
+
+LDI R16, 0b0000_0101
+OUT TCCR0B, R16
+
+LDI R16, 178
+OUT TCNT0, R16
+
+RET
+
+T1_OVF:
+LDI R16, 0xC2
+STS TCNT1H, R16
+LDI R16, 0xF7
+STS TCNT1L, R16
+/*LDI R16, 0xFF
+STS TCNT1H, R16
+LDI R16, 0x62
+STS TCNT1L, R16*/
+INC R21
+CPI R21, 1
+BREQ Suma
+JMP Done_T
+
+Suma:
+CLR R21 
+INC ZL
+LPM R17, Z
+CPI R17, 0xFF
+BREQ Reinicio1
+JMP Done_T
+
+Reinicio1:
+LDI ZL, LOW(T7SEG<<1)
+LPM R17, Z
+INC R23
+ADD ZL, R23
+LPM R18, Z
+LDI ZL, LOW(T7SEG<<1)
+CPI R18, 0b1000_0010
+BREQ Reinicio2
+JMP Done_T
+
+Reinicio2:
+CLR R23
+LDI ZL, LOW(T7SEG<<1)
+LPM R17, Z
+LPM R18, Z
+INC R24
+ADD ZL, R24
+LPM R19, Z
+LDI ZL, LOW(T7SEG<<1)
+CPI R20, 0b1010_0100
+BREQ RES1
+CPI R19, 0xFF
+BREQ Reinicio3
+JMP Done_T
+
+RES1:
+
+CPI R19, 0b1001_1001
+BREQ Reinicio4
+LDI ZL, LOW(T7SEG<<1)
+JMP Done_T
+
+Reinicio3:
+CLR R24
+LDI ZL, LOW(T7SEG<<1)
+LPM R17, Z
+LPM R18, Z
+LPM R19, Z
+INC R25
+ADD ZL, R25
+LPM R20, Z
+LDI ZL, LOW(T7SEG<<1)
+CPI R20, 0b1011_0000
+BREQ Reinicio4
+JMP Done_T
+
+
+
+
+Reinicio4:
+CLR R24
+CLR R25                       
+LDI ZL, LOW(T7SEG<<1)
+LPM R17, Z
+LPM R18, Z
+LPM R19, Z
+LPM R20, Z
+LDS R16, Contador1_F
+INC R16
+STS Contador1_F, R16
+ADD ZL, R16
+LPM R16, Z
+STS Fecha1, R16
+CLR R16
+JMP Done_T
+
+
+T0_OVF:
+LDI R16, 178
+OUT TCNT0, R16
+INC R26
+CPI R26, 100
+BREQ LED1
+IN R22, PORTB
+CBR R22, 0b0001_0000
+CPI R22, 0b0000_0001
+BREQ DIS1
+CPI R22, 0b0000_0010
+BREQ DIS2
+CPI R22, 0b0000_0100
+BREQ DIS3
+CPI R22, 0b0000_1000
+BREQ DIS4
+JMP Done_T
+
+LED1:
+CLR R26
+IN R22, PORTB
+CBR R22, 0x0F
+CPI R22, 0b0001_0000
+BREQ LED1OFF
+CPI R22, 0b0000_0000
+BREQ LED1ON
+JMP T0_OVF
+
+LED1OFF:
+CBI PORTB, 4
+JMP T0_OVF
+
+LED1ON:
+SBI PORTB, 4
+JMP T0_OVF
+
+DIS1:
+CBI PORTB, 0
+SBI PORTB, 1
+
+SBIC PINC, 4
+JMP DIS1_FECHA_1
+SBIC PINC, 5
+JMP DIS1_ALARMA_1
+
+OUT PORTD, R18
+JMP Done_T
+
+DIS2:
+CBI PORTB, 1
+SBI PORTB, 2
+
+
+SBIC PINC, 4
+JMP DIS2_FECHA_1
+SBIC PINC, 5
+JMP DIS2_ALARMA
+
+
+OUT PORTD, R19
+JMP Done_T
+
+DIS3:
+CBI PORTB, 2
+SBI PORTB, 3
+
+SBIC PINC, 4
+JMP DIS3_FECHA_1
+SBIC PINC, 5
+JMP DIS3_ALARMA_1
+
+OUT PORTD, R20
+JMP Done_T
+
+DIS4:
+CBI PORTB, 3
+SBI PORTB, 0 
+
+SBIC PINC, 4
+JMP DIS4_FECHA_1
+SBIC PINC, 5
+JMP DIS4_ALARMA_1
+
+OUT PORTD, R17
+JMP Done_T
+
+
+DIS1_Alarma_1:
+SBIS PINC, 4
+JMP DIS1_Alarma
+JMP DIS1_HORA
+JMP DONE_T
+
+
+DIS2_Alarma_1:
+SBIS PINC, 4
+JMP DIS2_Alarma
+JMP DIS2_HORA
+JMP DONE_T
+
+DIS3_Alarma_1:
+SBIS PINC, 4
+JMP DIS3_Alarma
+JMP DIS3_HORA
+JMP DONE_T
+
+DIS4_Alarma_1:
+SBIS PINC, 4
+JMP DIS4_Alarma
+JMP DIS4_HORA
+JMP DONE_T
+
+DIS1_FECHA_1:
+SBIS PINC, 5
+JMP DIS1_FECHA
+JMP DIS1_HORA
+JMP Done_T
+
+DIS2_FECHA_1:
+SBIS PINC, 5
+JMP DIS2_FECHA
+JMP DIS2_HORA
+JMP Done_T
+
+DIS3_FECHA_1:
+SBIS PINC, 5
+JMP DIS3_FECHA
+JMP DIS3_HORA
+JMP Done_T
+
+DIS4_FECHA_1:
+SBIS PINC, 5
+JMP DIS4_FECHA
+JMP DIS4_HORA
+JMP Done_T
+
+
+DIS1_HORA:
+LDS R16, Hora2
+OUT PORTD, R16
+CLR R16
+JMP Done_T
+
+
+DIS2_HORA:
+LDS R16, Hora3
+OUT PORTD, R16
+CLR R16
+JMP Done_T
+
+DIS3_HORA:
+LDS R16, Hora4
+OUT PORTD, R16
+CLR R16
+JMP Done_T
+
+DIS4_HORA:
+LDS R16, Hora1
+OUT PORTD, R16
+CLR R16
+JMP Done_T
+
+
+
+DIS1_FECHA:
+LDS R16, Fecha2
+OUT PORTD, R16
+CLR R16 
+JMP DONE_T
+DIS2_FECHA:
+LDS R16, Fecha3
+OUT PORTD, R16
+CLR R16 
+JMP DONE_T
+DIS3_FECHA:
+LDS R16, Fecha4
+OUT PORTD, R16
+CLR R16 
+JMP DONE_T
+DIS4_FECHA:
+LDS R16, Fecha1
+OUT PORTD, R16
+CLR R16 
+JMP DONE_T
+
+
+DIS1_Alarma:
+LDS R16, Alarma2
+OUT PORTD, R16
+CLR R16
+JMP DONE_T 
+
+DIS2_Alarma:
+LDS R16, Alarma3
+OUT PORTD, R16
+CLR R16
+JMP DONE_T 
+
+DIS3_Alarma:
+LDS R16, Alarma4
+OUT PORTD, R16
+CLR R16
+JMP DONE_T 
+
+DIS4_Alarma:
+LDS R16, Alarma1
+OUT PORTD, R16
+CLR R16
+JMP DONE_T 
+
+Done_T:
+RETI
+
+
+
+
+//*****************************************************************************
+// Tabla de Valores 
+//*****************************************************************************
+
+
+T7SEG: .DB 0b1100_0000, 0b1111_1001, 0b1010_0100, 0b1011_0000, 0b1001_1001, 0b1001_0010, 0b1000_0010, 0b1111_1000, 0b1000_0000, 0b1001_0000, 0xFF
+T7SEG2: .DB 0b1100_0000, 0b1111_1001, 0b1010_0100, 0b1011_0000, 0b1001_1001, 0b1001_0010, 0b1000_0010, 0b1111_1000, 0b1000_0000, 0b1001_0000, 0xFF
